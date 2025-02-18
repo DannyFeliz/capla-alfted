@@ -1,8 +1,9 @@
 import alfy from 'alfy';
+import { parse } from 'node-html-parser';
 
 const [amountInput, bankRateInput] = alfy.input.split(' ');
 
-// Format number with commas and only show decimals if not .00
+// Format number with commas and show 2 decimal places only when not .00
 const formatNumber = (number) => {
     // First format with 2 decimal places
     const formatted = new Intl.NumberFormat('en-US', {
@@ -10,8 +11,8 @@ const formatNumber = (number) => {
         maximumFractionDigits: 2
     }).format(number);
 
-    // Remove .00 if present
-    return formatted.replace(/\.00$/, '');
+    // Only remove .00 if it exists at the end
+    return formatted.endsWith('.00') ? formatted.slice(0, -3) : formatted;
 };
 
 // Remove commas from input and convert to number
@@ -60,31 +61,33 @@ if (!amountInput) {
     }]);
 } else {
     try {
-        // Fetch the raw HTML content
-        const response = await alfy.fetch('https://www.moneycorps.com.do/', { 
+        // Fetch the HTML content from accapla.com
+        const response = await alfy.fetch('https://accapla.com/', { 
             json: false
         });
 
-        // Extract the JSON data from the HTML
-        const jsonMatch = response.match(/{\s*"monedas":\s*\[\s*{\s*"nombre":\s*"[^"]+",\s*"compra":\s*"[^"]+",\s*"venta":\s*"[^"]+"\s*},\s*{\s*"nombre":\s*"[^"]+",\s*"compra":\s*"[^"]+",\s*"venta":\s*"[^"]+"\s*}\s*\]\s*}/);
+        // Parse the HTML
+        const root = parse(response);
+        const rateElement = root.querySelector('#tasas-ventanilla > div > div > div > div > table > tbody > tr:nth-child(2) > td:nth-child(2) > div');
         
-        if (!jsonMatch) {
-            throw new Error('Could not find exchange rates in the page');
+        if (!rateElement) {
+            throw new Error('Could not find exchange rate on the page');
         }
 
-        const data = JSON.parse(jsonMatch[0]);
-        const usdRate = data.monedas.find(currency => currency.nombre === 'USD');
-
-        if (!usdRate) {
-            throw new Error('Could not find USD exchange rate');
+        // Extract and clean the rate (format: "RD$ 62.30")
+        const rateText = rateElement.text.trim();
+        const rate = Number(rateText.replace('RD$', '').trim());
+        
+        if (isNaN(rate) || rate <= 0) {
+            throw new Error('Invalid exchange rate found');
         }
 
         const { netAmount, tax, fixedFee, totalDeductions } = calculateWithFees(amount);
-        const caplaConversion = netAmount * Number(usdRate.compra);
+        const caplaConversion = netAmount * rate;
         
         const output = [{
             title: `💰 Capla: ${formatNumber(amount)} USD = ${formatNumber(caplaConversion)} DOP`,
-            subtitle: `Fees: $${fixedFee} + $${formatNumber(tax)} tax = -$${formatNumber(totalDeductions)} | Rate: ${usdRate.compra} DOP`,
+            subtitle: `Fees: $${fixedFee} + $${formatNumber(tax)} tax = -$${formatNumber(totalDeductions)} | Rate: ${formatNumber(rate)} DOP`,
             arg: formatNumber(caplaConversion)
         }];
 
@@ -95,7 +98,7 @@ if (!amountInput) {
             
             output.push({
                 title: `🏦 Bank: ${formatNumber(amount)} USD = ${formatNumber(bankConversion)} DOP`,
-                subtitle: `No fees | Rate: ${bankRate} DOP`,
+                subtitle: `No fees | Rate: ${formatNumber(bankRate)} DOP`,
                 arg: formatNumber(bankConversion)
             });
 

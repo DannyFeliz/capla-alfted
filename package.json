@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "alfy": "^2.1.0"
+    "alfy": "^2.1.0",
+    "node-html-parser": "^7.0.1"
   }
 }
