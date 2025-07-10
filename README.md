@@ -1,6 +1,6 @@
 # Capla Currency Converter
 
-[![CI](https://github.com/DannyFeliz/capla-alfted/actions/workflows/ci.yml/badge.svg)](https://github.com/DannyFeliz/capla-alfted/actions/workflows/ci.yml)
+[![CI](https://github.com/DannyFeliz/capla-alfted/actions/workflows/ci.yml/badge.svg)](https://github.com/DannyFeliz/capla-alfted/actions)
 
 Alfred workflow that converts USD to Dominican Pesos (DOP) using real-time exchange rates from Capla.
 
@@ -50,14 +50,21 @@ npm run test:run      # Run tests once
 npm run test:coverage # Run with coverage report
 ```
 
+**Linting commands:**
+```bash
+npm run lint          # Check code quality with oxlint
+npm run lint:fix      # Fix auto-fixable linting issues
+```
+
 **Adding features:**
 1. Write tests in `index.test.js`
 2. Implement in `index.js`
 3. Export functions for testing
-4. Run tests
+4. Run linting and tests
 
 ## Dependencies
 
 - **alfy** - Alfred workflow helper
 - **node-html-parser** - HTML parsing
-- **vitest** - Testing framework 
+- **vitest** - Testing framework
+- **oxlint** - Fast linter (dev dependency) 
