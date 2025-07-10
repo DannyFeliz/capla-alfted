@@ -38,7 +38,7 @@ npm run test:run
 npm test
 
 # Run tests with coverage report
-npm run test:run -- --coverage
+npm run test:coverage
 ```
 
 ### Test Coverage
@@ -88,7 +88,13 @@ expect(result.isValidBankRate).toBe(true);
 ├── vitest.config.js  # Vitest configuration
 ├── package.json      # Dependencies and scripts
 ├── info.plist        # Alfred workflow configuration
+├── .gitignore        # Git ignore rules
 └── README.md         # Documentation
+
+# Generated/Ignored Files
+├── coverage/         # Test coverage reports (ignored)
+├── node_modules/     # Dependencies (ignored)
+└── *.log             # Log files (ignored)
 ```
 
 ## Dependencies
