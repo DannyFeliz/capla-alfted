@@ -1,6 +1,7 @@
 {
-  "name": "user.workflow.8e40d5b4-ef1f-41f8-b06b-c9e827511a6a",
+  "name": "capla-currency-converter",
   "version": "1.0.0",
+  "description": "Alfred workflow that converts USD to Dominican Pesos using real-time exchange rates from Capla",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -11,10 +12,17 @@
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": ["alfred", "workflow", "currency", "converter", "dominican-republic", "usd", "dop", "capla"],
+  "author": "Danny Feliz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DannyFeliz/capla-alfted.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DannyFeliz/capla-alfted/issues"
+  },
+  "homepage": "https://github.com/DannyFeliz/capla-alfted#readme",
   "dependencies": {
     "alfy": "^2.1.0",
     "node-html-parser": "^7.0.1"

@@ -1,6 +1,7 @@
 # Capla Currency Converter
 
 [![CI](https://github.com/DannyFeliz/capla-alfted/actions/workflows/ci.yml/badge.svg)](https://github.com/DannyFeliz/capla-alfted/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Alfred workflow that converts USD to Dominican Pesos (DOP) using real-time exchange rates from Capla.
 
@@ -64,9 +65,21 @@ npm run lint:fix      # Fix auto-fixable linting issues
 3. Export functions for testing
 4. Run linting and tests
 
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
+- Setting up the development environment
+- Code style guidelines
+- Testing requirements
+- Submitting pull requests
+
 ## Dependencies
 
 - **alfy** - Alfred workflow helper
 - **node-html-parser** - HTML parsing
 - **vitest** - Testing framework
-- **oxlint** - Fast linter (dev dependency) 
+- **oxlint** - Fast linter (dev dependency)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
