@@ -4,6 +4,8 @@
 
 Alfred workflow that converts USD to Dominican Pesos (DOP) using real-time exchange rates from Capla.
 
+![Image](https://github.com/user-attachments/assets/5b0efde9-b3d5-43e6-9180-e164beb69685)
+
 ## Installation
 
 **Requirements:** Node.js and npm installed on your system
