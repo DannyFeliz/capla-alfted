@@ -1,5 +1,7 @@
 # Capla Currency Converter
 
+[![CI](https://github.com/DannyFeliz/capla-alfted/actions/workflows/ci.yml/badge.svg)](https://github.com/DannyFeliz/capla-alfted/actions/workflows/ci.yml)
+
 Alfred workflow that converts USD to Dominican Pesos (DOP) using real-time exchange rates from Capla.
 
 ## Installation
