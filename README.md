@@ -1,124 +1,61 @@
-# Capla Currency Converter - Alfred Workflow
+# Capla Currency Converter
 
-An Alfred workflow that converts USD to Dominican Pesos (DOP) using real-time exchange rates from Capla.
+Alfred workflow that converts USD to Dominican Pesos (DOP) using real-time exchange rates from Capla.
+
+## Installation
+
+**Requirements:** Node.js and npm installed on your system
+
+1. **Download the workflow file:** [Capla.alfredworkflow](https://github.com/DannyFeliz/capla-alfted/blob/main/Capla.alfredworkflow)
+2. **Double-click** the file to install it in Alfred
+3. **Set permissions** if prompted (Alfred may ask for accessibility permissions)
+
+**Alternative:** Clone this repository and import manually:
+```bash
+git clone https://github.com/dannyfeliz/capla-currency-converter.git
+cd capla-currency-converter
+npm install
+# Open Alfred Preferences > Workflows > Import
+# Select the workflow folder
+```
+
+## Usage
+
+**Basic conversion:**
+```
+capla 250
+```
+
+**Compare with bank rate:**
+```
+capla 1,000 63.25
+```
 
 ## Features
 
 - 💱 Real-time exchange rates from accapla.com
-- 🏦 Compare with bank rates
-- 💰 Automatic fee calculation (5% fixed + 0.15% tax)
-- 📊 Shows gain/loss compared to bank rates
-- 🔢 Supports comma-formatted input numbers
+- 🏦 Bank rate comparison
+- 💰 Automatic fee calculation ($5 fixed + 0.15% tax)
+- 📊 Shows gain/loss vs bank rates
+- 🔢 Comma-formatted input support
 
-## Usage
+## Development
 
-### Basic Conversion
-```
-capla 250
-```
-Converts 250 USD to DOP using Capla rates with fees calculated.
-
-### Bank Rate Comparison
-```
-capla 1,000 63.25
-```
-Converts 1,000 USD and compares Capla rates vs bank rate of 63.25 DOP.
-
-## Testing
-
-This project uses [Vitest](https://vitest.dev/) for comprehensive unit testing.
-
-### Available Test Commands
-
+**Test commands:**
 ```bash
-# Run tests once
-npm run test:run
-
-# Run tests in watch mode
-npm test
-
-# Run tests with coverage report
-npm run test:coverage
+npm test              # Run tests in watch mode
+npm run test:run      # Run tests once
+npm run test:coverage # Run with coverage report
 ```
 
-### Test Coverage
-
-Current test coverage:
-- **34 test cases** covering all utility functions
-- **100% function coverage**
-- **95.45% branch coverage**
-- **70% statement coverage** (uncovered lines are Alfred-specific workflow logic)
-
-### Test Structure
-
-Tests are organized by function:
-- `formatNumber()` - Number formatting with commas and decimals
-- `cleanNumber()` - Input string parsing and comma removal
-- `calculateWithFees()` - Fee calculation logic
-- `parseExchangeRate()` - HTML parsing for exchange rates
-- `validateInputs()` - Input validation
-- `generateOutput()` - Alfred output generation
-- Integration tests for complete workflows
-
-### Example Test Cases
-
-```javascript
-// Number formatting
-expect(formatNumber(1000.50)).toBe('1,000.50');
-expect(formatNumber(1000)).toBe('1,000');
-
-// Fee calculations
-const fees = calculateWithFees(1000);
-expect(fees.fixedFee).toBe(5);
-expect(fees.tax).toBe(1.5); // 1000 * 0.0015
-expect(fees.netAmount).toBe(993.5);
-
-// Input validation
-const result = validateInputs('1,000', '63.25');
-expect(result.isValidAmount).toBe(true);
-expect(result.isValidBankRate).toBe(true);
-```
-
-## Project Structure
-
-```
-.
-├── index.js          # Main workflow logic with exported utility functions
-├── index.test.js     # Comprehensive test suite
-├── vitest.config.js  # Vitest configuration
-├── package.json      # Dependencies and scripts
-├── info.plist        # Alfred workflow configuration
-├── .gitignore        # Git ignore rules
-└── README.md         # Documentation
-
-# Generated/Ignored Files
-├── coverage/         # Test coverage reports (ignored)
-├── node_modules/     # Dependencies (ignored)
-└── *.log             # Log files (ignored)
-```
+**Adding features:**
+1. Write tests in `index.test.js`
+2. Implement in `index.js`
+3. Export functions for testing
+4. Run tests
 
 ## Dependencies
 
 - **alfy** - Alfred workflow helper
-- **node-html-parser** - HTML parsing for exchange rates
-- **vitest** - Testing framework (dev dependency)
-
-## Development
-
-### Adding New Features
-
-1. Write tests first in `index.test.js`
-2. Implement functionality in `index.js`
-3. Export functions for testing
-4. Run tests to ensure coverage
-
-### Fee Structure
-
-- **Fixed Fee**: $5 USD
-- **Tax Rate**: 0.15% (0.0015)
-- **Total Deductions**: Fixed Fee + Tax
-- **Net Amount**: Original Amount - Total Deductions
-
-### Exchange Rate Parsing
-
-The workflow fetches rates from `https://accapla.com/` and parses the HTML element with class `.amt-change` expecting format: `"RD$ 62.30"`. 
+- **node-html-parser** - HTML parsing
+- **vitest** - Testing framework 
