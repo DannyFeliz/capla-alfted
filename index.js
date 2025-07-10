@@ -68,7 +68,7 @@ if (!amountInput) {
 
         // Parse the HTML
         const root = parse(response);
-        const rateElement = root.querySelector('#tasas-ventanilla > div > div > div > div > table > tbody > tr:nth-child(2) > td:nth-child(2) > div');
+        const rateElement = root.querySelector('.amt-change');
         
         if (!rateElement) {
             throw new Error('Could not find exchange rate on the page');
@@ -86,7 +86,7 @@ if (!amountInput) {
         const caplaConversion = netAmount * rate;
         
         const output = [{
-            title: `💰 Capla: ${formatNumber(amount)} USD = ${formatNumber(caplaConversion)} DOP`,
+            title: `� Capla: ${formatNumber(amount)} USD = ${formatNumber(caplaConversion)} DOP`,
             subtitle: `Fees: $${fixedFee} + $${formatNumber(tax)} tax = -$${formatNumber(totalDeductions)} | Rate: ${formatNumber(rate)} DOP`,
             arg: formatNumber(caplaConversion)
         }];
@@ -103,10 +103,11 @@ if (!amountInput) {
             });
 
             // Add difference as a third option
+            const gainLossEmoji = difference > 0 ? '📈 Gain' : '📉 Loss';
             output.push({
-                title: `${difference > 0 ? '📈 Gain' : '📉 Loss'}: ${formatNumber(Math.abs(difference))} DOP`,
+                title: `${gainLossEmoji}: ${formatNumber(difference)} DOP`,
                 subtitle: 'Difference between Capla and Bank rates',
-                arg: formatNumber(Math.abs(difference))
+                arg: formatNumber(difference)
             });
         }
         
