@@ -3,7 +3,7 @@
 [![CI](https://github.com/DannyFeliz/capla-alfted/actions/workflows/ci.yml/badge.svg)](https://github.com/DannyFeliz/capla-alfted/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Alfred workflow that converts USD to Dominican Pesos (DOP) using real-time exchange rates from Capla.
+Alfred workflow that converts USD to Dominican Pesos (DOP) using real-time exchange rates from [Capla](https://accapla.com).
 
 ![Image](https://github.com/user-attachments/assets/5b0efde9-b3d5-43e6-9180-e164beb69685)
 
